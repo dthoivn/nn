@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#14233d"><title>Smart Class Quick</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="top"><div class="brand"><span class="logo">S</span><div><b>Smart Class</b><small id="classLabel">Lớp học của tôi</small></div></div><button class="save-chip" id="saveStatus">● Đã lưu</button></header>
+<section class="cloud-auth" id="cloudAuth">
+  <div class="cloud-auth-head"><b>Đồng bộ nhiều thiết bị</b><span id="cloudState">Chưa đăng nhập</span></div>
+  <div id="loginForm">
+    <input id="loginEmail" class="big-input" type="email" autocomplete="username" placeholder="Email giáo viên">
+    <input id="loginPassword" class="big-input" type="password" autocomplete="current-password" placeholder="Mật khẩu">
+    <button class="submit-btn" id="loginButton">ĐĂNG NHẬP VÀ ĐỒNG BỘ</button>
+  </div>
+  <div id="signedInPanel" class="hidden">
+    <div class="signed-email" id="signedEmail"></div>
+    <button class="plain-btn" id="logoutButton">Đăng xuất</button>
+  </div>
+  <small class="cloud-help">Dữ liệu được đồng bộ riêng theo tài khoản giáo viên. Chỉ người được cấp tài khoản mới truy cập được.</small>
+  <div id="cloudError" class="cloud-error" role="alert"></div>
+</section>
+<main>
+<section class="screen active" id="screen-behavior">
+  <div class="screen-head"><div><span class="eyebrow">GHI NHẬN NHANH</span><h1>Nề nếp</h1></div><span class="counter" id="behaviorTodayCount">0 hôm nay</span></div>
+  <div class="quick-panel">
+    <label class="field-label" for="behaviorStudent">Học sinh</label>
+    <select id="behaviorStudent" class="big-select"></select>
+    <div class="quick-types" id="behaviorTypes">
+      <button class="type-btn positive selected" data-type="Khen">＋ Khen</button>
+      <button class="type-btn remind" data-type="Nhắc">! Nhắc</button>
+      <button class="type-btn negative" data-type="Vi phạm">× Vi phạm</button>
+    </div>
+    <label class="field-label" for="behaviorText">Ghi chú nhanh (không bắt buộc)</label>
+    <input id="behaviorText" class="big-input" placeholder="VD: Phát biểu, nói chuyện..." autocomplete="off">
+    <button class="submit-btn" id="addBehavior">GHI NHẬN NGAY <span>↵</span></button>
+  </div>
+  <div class="list-head"><b>Ghi nhận gần đây</b><button class="plain-btn" id="clearBehaviorFilter">Hôm nay</button></div>
+  <div id="behaviorFeed" class="feed"></div>
+</section>
+
+<section class="screen" id="screen-grades">
+  <div class="screen-head"><div><span class="eyebrow">NHẬP ĐIỂM TẠI LỚP</span><h1>Điểm</h1></div><span class="counter" id="gradeTodayCount">0 điểm hôm nay</span></div>
+  <div class="quick-panel">
+    <label class="field-label" for="gradeStudent">Học sinh</label><select id="gradeStudent" class="big-select"></select>
+    <div class="split-fields"><div><label class="field-label" for="gradeSubject">Môn học (cố định)</label><input id="gradeSubject" class="big-input" value="Tin học" readonly aria-readonly="true"></div><div><label class="field-label" for="gradeKind">Loại điểm</label><select id="gradeKind" class="big-select compact"><option>Miệng</option><option>Thường xuyên</option><option>15 phút</option><option>Giữa kỳ</option><option>Cuối kỳ</option></select></div></div>
+    <label class="field-label">Chọn điểm</label>
+    <div class="score-pad" id="scorePad">
+      <button data-score="10">10</button><button data-score="9">9</button><button data-score="8">8</button><button data-score="7">7</button><button data-score="6">6</button><button data-score="5">5</button><button data-score="4">4</button><button data-score="3">3</button><button data-score="2">2</button><button data-score="1">1</button><button data-score="0">0</button><button data-score="9.5">9.5</button>
+    </div>
+    <div class="chosen-score"><span>Điểm đang chọn</span><strong id="chosenScore">—</strong><button id="clearScore" class="plain-btn">Xóa chọn</button></div>
+    <button class="submit-btn" id="addGrade">LƯU ĐIỂM <span>↵</span></button>
+  </div>
+  <div class="list-head"><b>Điểm mới nhập</b><span class="subtle" id="gradeAverageHint"></span></div><div id="gradeFeed" class="feed"></div>
+</section>
+
+<section class="screen" id="screen-students">
+  <div class="screen-head"><div><span class="eyebrow">DANH SÁCH LỚP</span><h1>Học sinh</h1></div><span class="counter" id="studentCount">0 học sinh</span></div>
+  <div class="student-tools"><input id="studentSearch" class="big-input" placeholder="Tìm tên học sinh..." autocomplete="off"><button class="add-student-short" id="openAddStudent">＋ Thêm</button></div>
+  <div class="class-filter-row"><label class="field-label" for="classFilter">Lọc theo lớp</label><select id="classFilter" class="big-select"><option value="all">Tất cả lớp</option></select></div>
+  <div id="studentList" class="student-list"></div>
+  <div class="backup-row"><button class="plain-btn" id="exportBtn">⇩ Xuất TXT</button><label class="plain-btn import-label">⇧ Nhập TXT<input id="importFile" type="file" accept=".txt,text/plain" hidden></label><button class="plain-btn" id="classSettings">⚙ Lớp</button></div>
+</section>
+</main>
+<nav class="bottom-nav">
+<button class="tab active" data-screen="behavior"><span class="tab-icon">✳</span><b>Nề nếp</b></button>
+<button class="tab" data-screen="grades"><span class="tab-icon">▤</span><b>Điểm</b></button>
+<button class="tab" data-screen="students"><span class="tab-icon">♙</span><b>HS</b></button>
+</nav>
+<div class="toast" id="toast"></div>
+<div class="modal hidden" id="studentModal"><div class="modal-card"><div class="modal-head"><b id="studentModalTitle">Thêm học sinh</b><button id="closeStudentModal">×</button></div><label class="field-label">Họ và tên</label><input id="newStudentName" class="big-input" placeholder="Nguyễn Văn A"><label class="field-label">Mã / STT (không bắt buộc)</label><input id="newStudentCode" class="big-input" placeholder="01"><div class="modal-actions"><button class="plain-btn" id="cancelStudent">Hủy</button><button class="submit-btn" id="saveStudent">LƯU HỌC SINH</button></div></div></div>
+<div class="modal hidden" id="classModal"><div class="modal-card"><div class="modal-head"><b>Quản lý lớp</b><button id="closeClassModal">×</button></div>
+<label class="field-label">Tên lớp mới</label><div class="class-create-row"><input id="classNameInput" class="big-input" placeholder="VD: 7A1"><button class="add-student-short" id="addClass">＋ Tạo lớp</button></div>
+<div class="field-label">Danh sách lớp</div><div id="classList" class="class-list"></div>
+<p class="modal-note">Xóa lớp chỉ được thực hiện khi lớp không còn học sinh. Học sinh và điểm đã lưu không bị xóa khi đổi tên lớp.</p>
+</div></div>
+<script src="app.js"></script><script type="module" src="firebase-sync.js"></script>\n</body></html>
